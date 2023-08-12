@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymleaf/layout"
+      layout:decorate="template1.html"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Nouveau PAtient</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row m-3">
+        <div class="col-md-6 offset-3">
+            <div class="card">
+            <div class="card-header">New patient</div>
+            <div class="card-body">
+                <form method="post" th:action="@{/savePatient}">
+                    <div class="mb-2">
+                        <label class="form-label">Name</label>
+                        <input th:value="${patient.nom}" type="text" name="nom" class="form-control">
+                        <span class="text-danger" th:errors="${patient.nom}"></span>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Date NAissance</label>
+                        <input th:value="${patient.dateNaissance}" type="date" name="dateNaissance" class="form-control">
+                        <span class="text-danger" th:errors="${patient.dateNaissance}"></span>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Malade</label>
+                        <input th:checked="${patient.malade}" type="checkbox" name="malade" class="form-check-input">
+                        <span class="text-danger" th:errors="${patient.malade}"></span>
+                    </div>
+                    <label class="form-label">Score</label>
+                    <input th:value="${patient.score}" type="text" name="score" class="form-control">
+                    <span class="text-danger" th:errors="${patient.score}"></span>
+                    <div class="mb-2">
+                        <button class="btn btn-success" type="submit">SAVE</button>
+                    </div>
+                </form>
+            </div>
+</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
