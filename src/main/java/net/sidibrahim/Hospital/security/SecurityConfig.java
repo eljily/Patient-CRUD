@@ -13,10 +13,13 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
+
+import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
@@ -27,6 +30,11 @@ public class SecurityConfig {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Bean
+    public JdbcUserDetailsManager jdbcUserDetailsManager(DataSource dataSource){
+        return new JdbcUserDetailsManager(dataSource);
+    }
+
+    //@Bean
     public InMemoryUserDetailsManager inMemoryUserDetailsManager(){
         return new InMemoryUserDetailsManager(
                 User.withUsername("user1").password(passwordEncoder.encode("1234")).roles("USER").build(),
@@ -40,7 +48,7 @@ public class SecurityConfig {
     }
    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-       httpSecurity.formLogin((l)-> l.loginPage("/login").permitAll());
+       httpSecurity.formLogin((l)-> l.loginPage("/login").defaultSuccessUrl("/").permitAll());
        httpSecurity.authorizeHttpRequests((auth)->
                auth.requestMatchers(mvc.pattern("/webjars/**")).permitAll());
        /*httpSecurity.authorizeHttpRequests((auth)->

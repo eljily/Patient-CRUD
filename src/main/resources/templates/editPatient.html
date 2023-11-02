@@ -17,8 +17,8 @@
             <div class="card-body">
                 <form method="post" th:action="@{/admin/savePatient}">
                     <div class="mb-2">
-                        <label class="form-label">ID</label>
-                        <input th:value="${patient.id}" type="text" disabled name="nom" class="form-control">
+                        <label class="form-label">ID:</label>
+                        <input th:value="${patient.id}" type="text" name="id" class="form-control">
                         <span class="text-danger" th:errors="${patient.nom}"></span>
                     </div>
                     <div class="mb-2">
