@@ -1,6 +1,8 @@
 package net.sidibrahim.Hospital.security;
 
 import lombok.AllArgsConstructor;
+import net.sidibrahim.Hospital.security.service.AccountService;
+import net.sidibrahim.Hospital.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,7 +31,10 @@ public class SecurityConfig {
     private MvcRequestMatcher.Builder mvc;
     @Autowired
     private PasswordEncoder passwordEncoder;
-    @Bean
+    @Autowired
+    private UserDetailsServiceImpl userDetailsServiceImpl;
+
+    // @Bean
     public JdbcUserDetailsManager jdbcUserDetailsManager(DataSource dataSource){
         return new JdbcUserDetailsManager(dataSource);
     }
@@ -60,6 +65,7 @@ public class SecurityConfig {
                 authorizeHttpRequests
                         .anyRequest().authenticated());
         httpSecurity.rememberMe(Customizer.withDefaults());
+        httpSecurity.userDetailsService(userDetailsServiceImpl);
         return httpSecurity.build();
     }
 

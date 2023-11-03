@@ -23,7 +23,8 @@ public class AccountServiceImpl implements AccountService {
         if (!password.equals(confirmPassword)) throw new RuntimeException("PASSWORDS NOT MATCH !!");
         appUser= AppUser.builder()
                 .userId(UUID.randomUUID().toString())
-                .username(passwordEncoder.encode(password))
+                .username(username)
+                .password(passwordEncoder.encode(password))
                 .email(email)
                 .build();
         AppUser savedAppUser = appUserRepository.save(appUser);
@@ -56,7 +57,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public AppUser loadUserByUserName(String username) {
+    public AppUser loadUserByUsername(String username) {
         return appUserRepository.findByUsername(username);
     }
 }

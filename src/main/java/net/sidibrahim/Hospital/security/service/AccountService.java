@@ -8,6 +8,6 @@ public interface AccountService {
     AppRole addNewRole(String role);
     void addRoleToUser(String username,String role);
     void removeRoleFromUser(String username,String role);
-    AppUser loadUserByUserName(String username);
+    AppUser loadUserByUsername(String username);
 
 }

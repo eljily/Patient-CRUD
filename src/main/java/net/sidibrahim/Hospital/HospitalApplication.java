@@ -1,5 +1,6 @@
 package net.sidibrahim.Hospital;
 
+import lombok.AllArgsConstructor;
 import net.sidibrahim.Hospital.entities.Patient;
 import net.sidibrahim.Hospital.repository.PatientRepository;
 import net.sidibrahim.Hospital.security.service.AccountService;
@@ -17,9 +18,9 @@ import org.springframework.web.util.pattern.PathPattern;
 
 import java.util.Date;
 
-@SpringBootApplication
+@SpringBootApplication @AllArgsConstructor
 public class HospitalApplication implements CommandLineRunner {
-	@Autowired
+
 	private PatientRepository patientRepository;
 
 	public static void main(String[] args) {
@@ -42,7 +43,7 @@ public class HospitalApplication implements CommandLineRunner {
 		patientRepository.save(new Patient(null,"ZeinDine",new Date(),true,500));
 		System.out.println("Nice it's working");
 	}
-	@Bean
+	//@Bean
 	CommandLineRunner commandLineRunner(JdbcUserDetailsManager jdbcUserDetailsManager){
 		PasswordEncoder passwordEncoder=passwordEncoder();
 		return args -> {
